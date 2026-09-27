@@ -1,1 +1,255 @@
-<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Register — EarnFlow</title><link rel="stylesheet" href="style.css"></head><body><div class="auth"><div class="brand">Earn<span>Flow</span></div><h1>অ্যাকাউন্ট তৈরি করুন</h1><div class="panel"><div class="field"><label>নাম</label><input id="name" placeholder="আপনার নাম"></div><div class="field"><label>মোবাইল / Email</label><input id="contact" placeholder="আপনার যোগাযোগ"></div><div class="field"><label>Password</label><input id="pass" type="password" placeholder="Password"></div><button class="btn full" onclick="register()">Create Account</button><p style="text-align:center">Already registered? <a href="login.html">Login</a></p></div></div><script>function register(){localStorage.setItem('user',JSON.stringify({name:document.getElementById('name').value||'Demo User',balance:0}));location.href='dashboard.html'}</script></body></html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EarnFlow — Create Account</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #111827;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 24px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .logo span {
+      color: #087ff5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: 45px auto;
+      padding: 0 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 32px 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.07);
+    }
+
+    .title {
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      border-color: #087ff5;
+      box-shadow: 0 0 0 3px rgba(8,127,245,0.12);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      background: #087ff5;
+      color: white;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 22px;
+      color: #6b7280;
+    }
+
+    .login a {
+      color: #087ff5;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #ecfdf5;
+      color: #047857;
+      font-size: 14px;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        margin: 25px auto;
+      }
+
+      .card {
+        padding: 27px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="logo">Earn<span>Flow</span></div>
+  </header>
+
+  <main class="container">
+
+    <div class="card">
+
+      <h1 class="title">Create account</h1>
+
+      <p class="subtitle">
+        EarnFlow-এ আপনার নতুন অ্যাকাউন্ট তৈরি করুন।
+      </p>
+
+      <form id="registerForm">
+
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="আপনার username"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="01XXXXXXXXX"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="you@example.com"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="একটি password দিন"
+            required
+            minlength="6"
+          >
+        </div>
+
+        <div class="field">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            placeholder="password আবার দিন"
+            required
+            minlength="6"
+          >
+        </div>
+
+        <button type="submit" class="btn">
+          Create Account
+        </button>
+
+        <div id="message" class="message"></div>
+
+      </form>
+
+      <div class="login">
+        Already have an account?
+        <a href="login.html">Login</a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const message = document.getElementById("message");
+
+      if (password !== confirmPassword) {
+        message.style.display = "block";
+        message.style.background = "#fef2f2";
+        message.style.color = "#dc2626";
+        message.textContent = "Password দুটো একই নয়। আবার চেষ্টা করুন।";
+        return;
+      }
+
+      message.style.display = "block";
+      message.style.background = "#ecfdf5";
+      message.style.color = "#047857";
+      message.textContent = "Account information ঠিক আছে।";
+
+      // Backend যুক্ত হলে এখানে account creation API call করা হবে।
+    });
+  </script>
+
+</body>
+</html>
