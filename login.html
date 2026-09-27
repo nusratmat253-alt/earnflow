@@ -1,1 +1,152 @@
 
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EarnFlow — Login</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+  background:linear-gradient(135deg,#f4f8ff,#eef5ff);
+  color:#101828;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.card{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:24px;
+  padding:32px 26px;
+  box-shadow:0 20px 50px rgba(16,24,40,.10);
+}
+
+.logo{
+  text-align:center;
+  font-size:32px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+
+.logo span{
+  color:#0878f9;
+}
+
+.subtitle{
+  text-align:center;
+  color:#667085;
+  margin-bottom:28px;
+}
+
+h1{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:24px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+  margin:16px 0 8px;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border:1px solid #d0d5dd;
+  border-radius:12px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#0878f9;
+  box-shadow:0 0 0 3px rgba(8,120,249,.10);
+}
+
+button{
+  width:100%;
+  border:0;
+  background:#0878f9;
+  color:white;
+  padding:16px;
+  border-radius:12px;
+  font-size:17px;
+  font-weight:700;
+  margin-top:24px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#0568dc;
+}
+
+.register{
+  text-align:center;
+  margin-top:22px;
+  color:#667085;
+}
+
+.register a{
+  color:#0878f9;
+  text-decoration:none;
+  font-weight:700;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div class="logo">
+    Earn<span>Flow</span>
+  </div>
+
+  <p class="subtitle">আপনার অ্যাকাউন্টে প্রবেশ করুন</p>
+
+  <h1>Welcome Back</h1>
+
+  <form action="dashboard.html">
+
+    <label>ইমেইল অথবা ইউজারনেম</label>
+    <input
+      type="text"
+      placeholder="আপনার ইমেইল বা ইউজারনেম"
+      required
+    >
+
+    <label>পাসওয়ার্ড</label>
+    <input
+      type="password"
+      placeholder="আপনার পাসওয়ার্ড"
+      required
+    >
+
+    <button type="submit">Login</button>
+
+  </form>
+
+  <div class="register">
+    অ্যাকাউন্ট নেই?
+    <a href="register.html">Registration করুন</a>
+  </div>
+
+</div>
+
+</body>
+</html>
