@@ -1,1 +1,444 @@
-<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard — EarnFlow</title><link rel="stylesheet" href="style.css"></head><body><header class="nav"><div class="brand">Earn<span>Flow</span></div><a href="index.html" class="btn ghost">Logout</a></header><main class="dash"><div class="dashnav"><div><h2>Dashboard</h2><p id="hello">Welcome back</p></div><a href="#withdraw" class="btn">Withdraw</a></div><div class="notice">এটি একটি demo version। বাস্তব earning/payout চালুর আগে backend, payment verification এবং task source যুক্ত করতে হবে।</div><div class="grid"><div class="stat">Available Balance<b>৳ <span id="balance">0</span></b></div><div class="stat">Completed Tasks<b>12</b></div><div class="stat">Pending Earnings<b>৳ 240</b></div></div><div class="panel task"><div class="row"><div><h3>Task #1001 — Product Feedback</h3><p>নির্দেশনা পড়ুন এবং বৈধ feedback submission দিন।</p></div><div><span class="reward">+৳ 30</span><br><button class="btn" onclick="completeTask()">Submit Task</button></div></div></div><div class="panel task"><div class="row"><div><h3>Task #1002 — Content Review</h3><p>নির্দিষ্ট content review করে result জমা দিন।</p></div><div><span class="reward">+৳ 50</span><br><button class="btn" onclick="completeTask()">Submit Task</button></div></div></div><div class="panel task" id="withdraw"><h3>Withdrawal Request</h3><div class="field"><label>Method</label><select><option>bKash</option><option>Nagad</option><option>Bank Transfer</option></select></div><div class="field"><label>Account Number</label><input placeholder="আপনার payout account"></div><button class="btn" onclick="alert('Demo request submitted')">Request Withdrawal</button></div></main><script>const u=JSON.parse(localStorage.getItem('user')||'{}');document.getElementById('hello').textContent='Hello, '+(u.name||'Demo User');let b=Number(u.balance||0);document.getElementById('balance').textContent=b;function completeTask(){b+=30;u.balance=b;localStorage.setItem('user',JSON.stringify(u));document.getElementById('balance').textContent=b;alert('Demo task submitted and ৳30 added after approval simulation.')}}</script></body></html>
+  <!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EarnFlow — Dashboard</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#f5f7fb;
+  color:#111827;
+  min-height:100vh;
+}
+
+/* Header */
+.topbar{
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
+  padding:18px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+
+.logo{
+  font-size:26px;
+  font-weight:800;
+}
+
+.logo span{
+  color:#087ff5;
+}
+
+.logout{
+  border:0;
+  background:#fee2e2;
+  color:#dc2626;
+  padding:10px 15px;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* Main */
+.container{
+  width:100%;
+  max-width:1000px;
+  margin:30px auto;
+  padding:0 20px;
+}
+
+.welcome{
+  margin-bottom:25px;
+}
+
+.welcome h1{
+  font-size:28px;
+  margin-bottom:7px;
+}
+
+.welcome p{
+  color:#6b7280;
+}
+
+/* Balance */
+.balance{
+  background:linear-gradient(135deg,#087ff5,#0056c7);
+  color:white;
+  border-radius:22px;
+  padding:28px;
+  margin-bottom:25px;
+  box-shadow:0 15px 35px rgba(8,127,245,.20);
+}
+
+.balance-title{
+  font-size:15px;
+  opacity:.9;
+  margin-bottom:8px;
+}
+
+.amount{
+  font-size:38px;
+  font-weight:800;
+  margin-bottom:20px;
+}
+
+.balance-info{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  font-size:14px;
+}
+
+/* Statistics */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-bottom:30px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:22px;
+}
+
+.card-title{
+  color:#6b7280;
+  font-size:14px;
+  margin-bottom:10px;
+}
+
+.card-value{
+  font-size:25px;
+  font-weight:800;
+}
+
+/* Sections */
+.section-title{
+  font-size:21px;
+  margin-bottom:15px;
+}
+
+/* Actions */
+.actions{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  margin-bottom:30px;
+}
+
+.action{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:20px;
+  text-decoration:none;
+  color:#111827;
+  transition:.2s;
+}
+
+.action:hover{
+  border-color:#087ff5;
+  transform:translateY(-2px);
+}
+
+.action strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:5px;
+}
+
+.action span{
+  color:#6b7280;
+  font-size:14px;
+}
+
+/* Activity */
+.activity{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:30px;
+}
+
+.activity-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+}
+
+.activity-name{
+  font-weight:600;
+}
+
+.activity-date{
+  color:#6b7280;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.positive{
+  color:#059669;
+  font-weight:700;
+}
+
+/* Mobile */
+@media(max-width:700px){
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+
+  .balance-info{
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .welcome h1{
+    font-size:24px;
+  }
+
+  .amount{
+    font-size:34px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+
+  <div class="logo">
+    Earn<span>Flow</span>
+  </div>
+
+  <button class="logout" onclick="logout()">
+    Logout
+  </button>
+
+</header>
+
+
+<main class="container">
+
+  <section class="welcome">
+
+    <h1>
+      Welcome to EarnFlow 👋
+    </h1>
+
+    <p>
+      আপনার EarnFlow Dashboard-এ স্বাগতম।
+    </p>
+
+  </section>
+
+
+  <!-- Balance -->
+
+  <section class="balance">
+
+    <div class="balance-title">
+      Available Balance
+    </div>
+
+    <div class="amount">
+      ৳0.00
+    </div>
+
+    <div class="balance-info">
+
+      <span>
+        Today: ৳0.00
+      </span>
+
+      <span>
+        Total Earned: ৳0.00
+      </span>
+
+    </div>
+
+  </section>
+
+
+  <!-- Statistics -->
+
+  <section class="cards">
+
+    <div class="card">
+
+      <div class="card-title">
+        Total Tasks
+      </div>
+
+      <div class="card-value">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Completed Tasks
+      </div>
+
+      <div class="card-value">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="card-title">
+        Total Withdraw
+      </div>
+
+      <div class="card-value">
+        ৳0
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Quick Actions -->
+
+  <h2 class="section-title">
+    Quick Actions
+  </h2>
+
+  <section class="actions">
+
+    <a href="#" class="action">
+
+      <strong>
+        💼 Earn Money
+      </strong>
+
+      <span>
+        Available earning tasks দেখুন
+      </span>
+
+    </a>
+
+
+    <a href="#" class="action">
+
+      <strong>
+        💰 Withdraw
+      </strong>
+
+      <span>
+        আপনার balance withdraw করুন
+      </span>
+
+    </a>
+
+
+    <a href="#" class="action">
+
+      <strong>
+        👤 Profile
+      </strong>
+
+      <span>
+        আপনার account information দেখুন
+      </span>
+
+    </a>
+
+
+    <a href="#" class="action">
+
+      <strong>
+        📊 History
+      </strong>
+
+      <span>
+        আপনার earning history দেখুন
+      </span>
+
+    </a>
+
+  </section>
+
+
+  <!-- Recent Activity -->
+
+  <h2 class="section-title">
+    Recent Activity
+  </h2>
+
+  <section class="activity">
+
+    <div class="activity-item">
+
+      <div>
+
+        <div class="activity-name">
+          No activity yet
+        </div>
+
+        <div class="activity-date">
+          আপনার activity এখানে দেখা যাবে
+        </div>
+
+      </div>
+
+      <div class="positive">
+        ৳0
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<script>
+
+function logout(){
+
+  const confirmLogout =
+    confirm("আপনি কি Logout করতে চান?");
+
+  if(confirmLogout){
+
+    window.location.href = "login.html";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>                                                                                                                                  
